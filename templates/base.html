@@ -1,0 +1,12 @@
+<!-- ... -->
+<nav>
+    <ul>
+        <li><a href="{{ url_for('get_info') }}">Home</a></li>
+        {% if 'user_id' in session %}
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login_page') }}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<!-- ... -->
