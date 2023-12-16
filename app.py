@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template, redirect, url_for, session, flash
 import psycopg2
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -7,6 +7,7 @@ import base64
 import os
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 
 # Konfigurasi koneksi database
 db_config = {
@@ -51,11 +52,41 @@ def decrypt_password(encrypted_password, salt):
         iterations=100000,
         backend=default_backend()
     )
-    key = base64.urlsafe_b64encode(kdf.derive(password.encode()))
+    key = base64.urlsafe_b64encode(kdf.derive(user[1].encode()))
     cipher = Cipher(algorithms.AES(key), modes.CFB(os.urandom(16)), backend=default_backend())
     decryptor = cipher.decryptor()
     decrypted_password = decryptor.update(encrypted_password) + decryptor.finalize()
     return decrypted_password.decode()
+
+# (POST) Login
+@app.route('/login', methods=['POST'])
+def login():
+    conn = None
+    cur = None
+    try:
+        conn, cur = create_connection()
+
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        cur.execute("SELECT * FROM pengguna WHERE username = %s", (username,))
+        user = cur.fetchone()
+
+        if user and decrypt_password(user[2], user[3]) == password:
+            session['user_id'] = user[0]
+            flash('Login berhasil!', 'success')
+            return redirect(url_for('get_info'))
+        else:
+            flash('Login gagal. Periksa kembali username dan password Anda.', 'error')
+            return redirect(url_for('login_page'))
+    finally:
+        close_connection(conn, cur)
+
+#GET Login
+@app.route('/login', methods=['GET'])
+def login_page():
+    return render_template('login.html')
+
 
 # (POST)
 @app.route('/info', methods=['POST'])
