@@ -102,8 +102,3 @@ Aplikasi akan berjalan di `http://127.0.0.1:5000/` atau URL lain yang ditampilka
 - Metode: `DELETE`
 - Contoh Body JSON untuk menghapus data:
 
-```json
-{
-    "id": 1
-}
-```
