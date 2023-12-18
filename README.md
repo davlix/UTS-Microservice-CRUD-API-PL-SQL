@@ -1,3 +1,6 @@
+# Nama Kelompok	: DHEMA EKA PRIANTARA, DWI GALIH RAMADHAN, DONI TANDRIANTO, DIMAS SAPUTRO
+di kerjakan secara mandiri
+
 Berikut adalah versi dokumentasi dalam format Markdown (README.md):
 
 ## login = http://127.0.0.1:5000/login (link yang tertera pada terminal)
