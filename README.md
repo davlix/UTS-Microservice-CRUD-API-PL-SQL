@@ -1,6 +1,3 @@
-# Nama Kelompok	: DHEMA EKA PRIANTARA, DWI GALIH RAMADHAN, DONI TANDRIANTO, DIMAS SAPUTRO
-di kerjakan secara mandiri
-
 Berikut adalah versi dokumentasi dalam format Markdown (README.md):
 
 ## login = http://127.0.0.1:5000/login (link yang tertera pada terminal)
@@ -48,7 +45,7 @@ pip install Flask psycopg2 cryptography
 db_config = {
     'dbname': 'dep',
     'user': 'postgres',
-    'password': 'demauye0911',
+    'password': 'password',
     'host': 'localhost',
     'port': '5432'
 }
