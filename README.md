@@ -1,106 +1,81 @@
-Berikut adalah versi dokumentasi dalam format Markdown (README.md):
 
-## login = http://127.0.0.1:5000/login (link yang tertera pada terminal)
+# Microservice dengan Fitur Logging
 
-```markdown
-# Dokumentasi Aplikasi Flask CRUD dengan Enkripsi Password AES-256
+Aplikasi ini adalah mikroservis berbasis Flask dengan integrasi database PostgreSQL. Aplikasi menyediakan fungsionalitas login pengguna, serta operasi CRUD (Create, Read, Update, Delete) untuk informasi mahasiswa.
 
-## Instalasi
+## Fitur
 
-### 1. 
+- Otentikasi pengguna dengan penyimpanan sandi terenkripsi
+- Operasi CRUD informasi mahasiswa
+- Fitur logging untuk melacak peristiwa penting
 
-```bash
-python -m venv venv
-```
+## Memulai
 
-Kemudian aktifkan:
+### Prasyarat
 
-- **Windows:**
-  ```bash
-  venv\Scripts\activate
+- Python 3.x
+- Flask
+- psycopg2
+- cryptography
+
+### Instalasi
+
+1. Clone repositori:
+
+   ```bash
+   git clone https://github.com/davlix/UTS-Microservice-CRUD-API-PL-SQL.git
+   cd microservice-with-logging
+   ```
+
+2. Instal dependensi:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Jalankan aplikasi:
+
+   ```bash
+   python app.py
+   ```
+
+   Aplikasi dapat diakses di `http://127.0.0.1:5000/`.
+
+## Penggunaan
+
+### Logging
+
+Aplikasi menggunakan modul `logging` Python untuk mencatat peristiwa penting. File log dinamai `app.log` dan berisi informasi seperti login berhasil, percobaan login gagal, dan kesalahan pada berbagai fungsi.
+
+### Contoh Entri Log
+
+- Login Berhasil:
+
+  ```
+  2024-02-17 12:30:45 - INFO - Pengguna john_cena berhasil login.
   ```
 
-- **Linux atau macOS:**
-  ```bash
-  source venv/bin/activate
+- Login Gagal:
+
+  ```
+  2024-02-17 12:35:20 - WARNING - Pengguna jane_cena gagal login.
   ```
 
-### 2. Instalasi Dependencies
+- Kesalahan pada Fungsi:
 
-```bash
-pip install Flask psycopg2 cryptography
+  ```
+  2024-02-17 13:00:10 - ERROR - Kesalahan pada fungsi update_info: division by zero.
+  ```
+
+### Format Log
+
+Entri log mengikuti format:
+
+```
+%(asctime)s - %(levelname)s - %(message)s
 ```
 
-- `Flask`: Framework web untuk Python.
-- `psycopg2`: Driver PostgreSQL untuk Python.
-- `cryptography`: Pustaka untuk operasi kriptografi, digunakan untuk enkripsi dan dekripsi AES-256.
-
-## Konfigurasi Database
-
-1. Pastikan PostgreSQL telah terinstall dan berjalan.
-2. Buat database baru dengan nama "dep"
-3. Sesuaikan konfigurasi koneksi database di file aplikasi Flask (`app.py`) dengan informasi database.
-
-```python
-db_config = {
-    'dbname': 'dep',
-    'user': 'postgres',
-    'password': 'password',
-    'host': 'localhost',
-    'port': '5432'
-}
-```
-
-## Menjalankan Aplikasi
-
-1. Jalankan aplikasi Flask dengan perintah:
-
-```bash
-python app.py
-```
-
-Aplikasi akan berjalan di `http://127.0.0.1:5000/` atau URL lain yang ditampilkan di terminal.
-
-## Penggunaan API Endpoints
-
-### 1. Menambah Data Mahasiswa (POST)
-
-- Endpoint: `http://127.0.0.1:5000/info`
-- Metode: `POST`
-- Contoh Body JSON:
-
-```json
-{
-    "nama": "John Doe",
-    "deskripsi": "Mahasiswa baru",
-    "password": "secure_password"
-}
-```
-
-### 2. Mendapatkan Data Mahasiswa (GET)
-
-- Endpoint: `http://127.0.0.1:5000/info`
-- Metode: `GET`
-- Menampilkan data mahasiswa pertama dari database.
-
-### 3. Memperbarui Data Mahasiswa (PUT)
-
-- Endpoint: `http://127.0.0.1:5000/info`
-- Metode: `PUT`
-- Contoh Body JSON untuk memperbarui data:
-
-```json
-{
-    "id": 1,
-    "nama": "John Doe",
-    "deskripsi": "Mahasiswa lama",
-    "password": "new_secure_password"
-}
-```
-
-### 4. Menghapus Data Mahasiswa (DELETE)
-
-- Endpoint: `http://127.0.0.1:5000/info`
-- Metode: `DELETE`
-- Contoh Body JSON untuk menghapus data:
+- `%(asctime)s`: Timestamp dari entri log.
+- `%(levelname)s`: Level log (INFO, WARNING, ERROR, dll.).
+- `%(message)s`: Pesan log yang berisi informasi relevan.
 
