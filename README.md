@@ -24,7 +24,7 @@ Aplikasi ini adalah mikroservis berbasis Flask dengan integrasi database Postgre
 
    ```bash
    git clone https://github.com/davlix/UTS-Microservice-CRUD-API-PL-SQL.git
-   cd microservice-with-logging
+   cd UTS-Microservice-CRUD-API-PL-SQL
    ```
 
 2. Instal dependensi:
